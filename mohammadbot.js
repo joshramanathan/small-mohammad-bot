@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = require('fs').readFileSync('bottoken.txt').toString();
+const config = require('./config.json');
 var languageSpeaking = 'English';
 var nerdCounter = 0;
 
 
-client.login(token);
+client.login(config.BOT_TOKEN);
 
 /*
 client.on("ready", () => {
@@ -89,8 +89,10 @@ client.on('message', message => {
     }
 
     else if(message.content.toLowerCase().includes('nerd')) {
-        message.channel.send('seriously stop calling me a n*rd youve done that ' + nerdCounter + ' other times now');
-        nerdCounter++;
+        if(!message.author.bot) {
+            message.channel.send('seriously stop calling me a nerd youve done that ' + nerdCounter + ' other times now');
+            nerdCounter++;
+        } 
     }
 
     else if(message.content.toLowerCase() === 'english') {
