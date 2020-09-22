@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = 'NzU1OTg1MTkwNDU4NzUzMTY1.X2LQEg.TgmvkbRK-FDcH_Jqe65QuBXDW04';
+const token = require('fs').readFileSync('bottoken.txt').toString();
 var languageSpeaking = 'English';
 var nerdCounter = 0;
 
