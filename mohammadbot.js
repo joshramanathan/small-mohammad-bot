@@ -14,7 +14,6 @@ client.on('ready', () => {
     client.user.setActivity('Big Mohammad (commands)', ({type: "WATCHING"}))
 })
 
-
 //cd C:\Users\Marie\Desktop\Code\discord-bot
 //pm2 start mohammadbot.js --watch
 
