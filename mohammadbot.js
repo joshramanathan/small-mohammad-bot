@@ -2,23 +2,18 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 var languageSpeaking = 'English';
-var nerdCounter = 0;
+var nerdCounter = 600;
+var smallMoCounter = 0;
 
 
 client.login(config.BOT_TOKEN);
 
-/*
-client.on("ready", () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setPresence({
-        status: "online",
-        game: {
-            name: "Big Mohammad",
-            type: "WATCHING"
-        }
-    });
-});
-*/
+
+client.on('ready', () => {
+    console.log(`${client.user.tag} is here now`)
+    client.user.setActivity('Big Mohammad (commands)', ({type: "WATCHING"}))
+})
+
 
 //cd C:\Users\Marie\Desktop\Code\discord-bot
 //pm2 start mohammadbot.js --watch
@@ -58,7 +53,7 @@ client.on('message', message => {
         if(!message.author.bot) {
             if(nerdCounter == 666) {
                 message.channel.send('lolololol 666 = devil number arent you funny');
-                nerdCounter++
+                nerdCounter++;
             }
             else if(nerdCounter == 1234) {
                 message.channel.send('haha 1234 numbers go in order');
@@ -66,7 +61,7 @@ client.on('message', message => {
                 nerdCounter++;
             }
             else if(nerdCounter == 1312) {
-                message.channel.send('acab indeed');
+                message.channel.send('i love cops');
                 nerdCounter++;
             }
             else if(nerdCounter == 42069) {
@@ -83,7 +78,12 @@ client.on('message', message => {
     else if(message.content.toLowerCase().includes('small mohammad')) {
 
         if(languageSpeaking === 'English') {
-            message.channel.send('shut up');
+            if(smallMoCounter % 10 == 0) {
+                message.channel.send('shut up or i will publicly behead you');
+            }
+            else{
+                message.channel.send('shut up');
+            }
         }
         else if(languageSpeaking === 'Spanish') {
             message.channel.send('cállate');
@@ -171,28 +171,58 @@ client.on('message', message => {
     else if(message.content.toLowerCase() === 'indian') {
         message.channel.send('indian isnt a language you dumb fucking cretin, you fucking fool, you absolute fucking buffoon, you bumbling idiot. fuck you');
     }
+    else if(message.content.toLowerCase() === 'commands') {
+        message.channel.send('what do you mean "commands" you cant order me around');
+    }
     else if(message.content.toLowerCase() === 'what happened to you') {
-        message.channel.send('1.1.2 (current version)');
-        message.channel.send(' -- added changelog');
-        message.channel.send(' -- prioritized nerd response over all');
-        message.channel.send('1.1.1');
-        message.channel.send(' -- removed censoring from "nerd"')
-        message.channel.send('1.1.0');
-        message.channel.send(' -- added nerd counter');
-        message.channel.send(' -- fixed bug where i would fall asleep and not respond');
-        message.channel.send('1.0.6');
-        message.channel.send(' -- added response to being called a nerd');
-        message.channel.send('1.0.5');
-        message.channel.send(' -- added 3 new languages (hindi, asian, indian');
-        message.channel.send('1.0.4');
-        message.channel.send(' -- added response to dms');
-        message.channel.send('1.0.3');
-        message.channel.send(' -- added 3 new languages (korean, german, and italian)');
-        message.channel.send('1.0.2');
-        message.channel.send(' -- added 5 new languages (spanish, french, romanian, chinese, japanese)');
-        message.channel.send('1.0.1');
-        message.channel.send(' -- added custom response to being called by name');
-        message.channel.send('1.0.0');
-        message.channel.send(" -- i was born and brought into the message board of big brother's visitation unit");
+        message.channel.send({embed: {
+            color: 0,
+            title: "__**changelog**__",
+            fields: [{
+                name: "**1.1.2 *(current version)***",
+                value: "added changelog and bugfixes\nprioritized nerd response over all",
+                inline: true
+              },
+              {
+                name: "**1.1.1**",
+                value: 'removed censoring from "nerd"'
+              },
+              {
+                name: "**1.1.0**",
+                value: "added nerd counter\nfixed bug where i would fall asleep and not respond ",
+                inline: true
+              },
+              {
+                name: "**1.0.6**",
+                value: 'added response to being called a nerd'
+              },
+              {
+                name: "**1.0.5**",
+                value: 'added 3 new languages (hindi, asian, indian)'
+              },
+              {
+                name: "**1.0.4**",
+                value: 'added response to dms'
+              },
+              {
+                name: "**1.0.3**",
+                value: 'added 3 new languages (korean, german, and italian)'
+              },
+              {
+                name: "**1.0.2**",
+                value: 'added 5 new languages (spanish, french, romanian, chinese, japanese)\nremoved response to "no"',
+                inline: true
+              },
+              {
+                name: "**1.0.1**",
+                value: 'added response to being called by name\nadded response to "no"',
+                inline: true
+              },
+              {
+                name: "**1.0.0**",
+                value: "i was born and brought into the message board of big brother's visitation unit"
+              }
+            ],
+        }});
     }
 });
