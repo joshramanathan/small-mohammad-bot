@@ -2,15 +2,15 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 var languageSpeaking = 'English';
-var nerdCounter = 600;
-var smallMoCounter = 0;
+var nerdCounter = 809;
+var smallMoCounter = 1;
 
 
 client.login(config.BOT_TOKEN);
 
 
 client.on('ready', () => {
-    console.log(`${client.user.tag} is here now`)
+    console.log(`${client.user.tag} is ready to insult`)
     client.user.setActivity('Big Mohammad (commands)', ({type: "WATCHING"}))
 })
 
@@ -48,6 +48,25 @@ client.on('message', message => {
         }
     }
 
+    else if(message.content.toLowerCase() === 'what do you think of me') {
+        var adj1 = ["a stupid", "a dumb", "a moronic", "an idiotic", "a braindead", "a foolish", "a monstrous", "a fatuous", "a misshapen", "an imbecilic", "a disreputable", "a repugnant", "a grotesque", "a thickheaded", "an annoying", "a horrific", "an awful", "a gullible", "a nasty", "a dense", "an obtuse", "a dull", "an ignorant", "a brainless", "a bumbling"];
+        var adj2 = ["stupid", "dumb", "moronic", "idiotic", "braindead", "foolish", "monstrous", "fatuous", "misshapen", "imbecilic", "disreputable", "repugnant", "grotesque", "thickheaded", "annoying", "horrific", "awful", "gullible", "nasty", "dense", "obtuse", "dull", "ignorant", "brainless", "bumbling"];
+        var nouns = ["idiot", "moron", "nincompoop", "nitwit", "dingbat", "cretin", "buffoon", "dimwit", "imbecile", "simpleton", "bonehead", "fool", "rascal", "freak", "dullard", "ignoramus", "numbskull", "airhead", "bozo", "clown", "galoot", "doofus"];
+        var randomAdj1 = Math.floor(Math.random() * 25);
+        var randomAdj2 = Math.floor(Math.random() * 25);
+        var randomNoun = Math.floor(Math.random() * 22);
+        var randomChance = Math.floor(Math.random() * 100);
+        if(randomChance == 69) {
+            message.channel.send('youre ok i guess');
+        }
+        else {
+            message.channel.send('youre ' + adj1[randomAdj1] + " " + adj2[randomAdj2] + " " + nouns[randomNoun]);
+            if(randomAdj1 == randomAdj2) {
+                message.channel.send('wow youre so ' + adj2[randomAdj2] + ' that i had to say it twice');
+            }
+        }
+    }
+
     else if(message.content.toLowerCase().includes('nerd')) {
         if(!message.author.bot) {
             if(nerdCounter == 666) {
@@ -74,11 +93,11 @@ client.on('message', message => {
         } 
     }
 
-    else if(message.content.toLowerCase().includes('small mohammad')) {
-
+    else if(message.content.toLowerCase().includes('small mohammad') || message.content.toLowerCase().includes('small mo')) {
         if(languageSpeaking === 'English') {
-            if(smallMoCounter % 10 == 0) {
+            if(smallMoCounter % 5 == 0) {
                 message.channel.send('shut up or i will publicly behead you');
+                smallMoCounter++;
             }
             else{
                 message.channel.send('shut up');
@@ -170,15 +189,25 @@ client.on('message', message => {
     else if(message.content.toLowerCase() === 'indian') {
         message.channel.send('indian isnt a language you dumb fucking cretin, you fucking fool, you absolute fucking buffoon, you bumbling idiot. fuck you');
     }
+
     else if(message.content.toLowerCase() === 'commands') {
         message.channel.send('what do you mean "commands" you cant order me around');
     }
+
+    else if(message.content.toLowerCase().includes('blacklist') || message.content.toLowerCase().includes('$report')) {
+        message.channel.send('you blacklist my realm i will actually unleash my fury upon your world');
+    }
+
     else if(message.content.toLowerCase() === 'what happened to you') {
         message.channel.send({embed: {
             color: 0,
             title: "__**changelog**__",
             fields: [{
-                name: "**1.1.2 *(current version)***",
+                name: "**1.1.3 *(current version)***",
+                value: "added personal opinions"
+              },
+              {
+                name: "**1.1.2**",
                 value: "added changelog and bugfixes\nprioritized nerd response over all",
                 inline: true
               },
