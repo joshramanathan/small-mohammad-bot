@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
+const stats = require('./stats.json');
+const fs = require('fs');
 var languageSpeaking = 'English';
-var nerdCounter = 809;
+//var nerdCounter = 809;
 var smallMoCounter = 1;
 
 
@@ -11,7 +13,7 @@ client.login(config.BOT_TOKEN);
 
 client.on('ready', () => {
     console.log(`${client.user.tag} is ready to insult`)
-    client.user.setActivity('Big Mohammad (commands)', ({type: "WATCHING"}))
+    client.user.setActivity('Big Mo (commands)', ({type: "WATCHING"}))
 })
 
 //cd C:\Users\Marie\Desktop\Code\discord-bot
@@ -47,7 +49,18 @@ client.on('message', message => {
             }
         }
     }
+/*
+    else if(message.content.toLowerCase() === 'small mo, should') {
+        message.channel.send('should what');
+    }
+    else if(message.content.toLowerCase() === 'small mo, am') {
+        message.channel.send('am what');
+    }
 
+    else if(message.content.toLowerCase().includes('small mo, should ') || message.content.toLowerCase().includes('small mohammad, should ')) {
+        nothing here yet
+    }
+*/
     else if(message.content.toLowerCase() === 'what do you think of me') {
         var adj1 = ["a stupid", "a dumb", "a moronic", "an idiotic", "a braindead", "a foolish", "a monstrous", "a fatuous", "a misshapen", "an imbecilic", "a disreputable", "a repugnant", "a grotesque", "a thickheaded", "an annoying", "a horrific", "an awful", "a gullible", "a nasty", "a dense", "an obtuse", "a dull", "an ignorant", "a brainless", "a bumbling"];
         var adj2 = ["stupid", "dumb", "moronic", "idiotic", "braindead", "foolish", "monstrous", "fatuous", "misshapen", "imbecilic", "disreputable", "repugnant", "grotesque", "thickheaded", "annoying", "horrific", "awful", "gullible", "nasty", "dense", "obtuse", "dull", "ignorant", "brainless", "bumbling"];
@@ -55,7 +68,7 @@ client.on('message', message => {
         var randomAdj1 = Math.floor(Math.random() * 25);
         var randomAdj2 = Math.floor(Math.random() * 25);
         var randomNoun = Math.floor(Math.random() * 22);
-        var randomChance = Math.floor(Math.random() * 100);
+        var randomChance = Math.floor(Math.random() * 420);
         if(randomChance == 69) {
             message.channel.send('youre ok i guess');
         }
@@ -67,28 +80,47 @@ client.on('message', message => {
         }
     }
 
+    else if(message.content.toLowerCase() === 'no') {
+        message.channel.send('yes');
+    }
+
     else if(message.content.toLowerCase().includes('nerd')) {
         if(!message.author.bot) {
-            if(nerdCounter == 666) {
+            if(stats.NERD_COUNT == 666) {
                 message.channel.send('lolololol 666 = devil number arent you funny');
-                nerdCounter++;
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
             }
-            else if(nerdCounter == 1234) {
+            else if(stats.NERD_COUNT == 1234) {
                 message.channel.send('haha 1234 numbers go in order');
                 message.channel.send('thats hilarious');
-                nerdCounter++;
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
             }
-            else if(nerdCounter == 1312) {
-                message.channel.send('i love cops');
-                nerdCounter++;
+            else if(stats.NERD_COUNT == 1312) {
+                message.channel.send('all cops are beautiful');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
             }
-            else if(nerdCounter == 42069) {
+            else if(stats.NERD_COUNT == 42069) {
                 message.channel.send('you were waiting for me to get to that number just so i would say it huh? well sucks to be you because ill never say the number and your once chance to tell me "haha weed sex number" will be gone forever loser');
-                nerdCounter++;
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
             }
             else {
-                message.channel.send('seriously stop calling me a nerd youve done that ' + nerdCounter + ' other times now');
-                nerdCounter++;
+                message.channel.send('seriously stop calling me a nerd youve done that ' + stats.NERD_COUNT + ' other times now');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
             }
         } 
     }
@@ -110,7 +142,7 @@ client.on('message', message => {
             message.channel.send('ferme-la');
         }
         else if(languageSpeaking === 'Romanian') {
-            message.channel.send('lasă vorba');
+            message.channel.send('tachi');
         }
         else if(languageSpeaking === 'Chinese') {
             message.channel.send('闭嘴');
@@ -202,8 +234,14 @@ client.on('message', message => {
         message.channel.send({embed: {
             color: 0,
             title: "__**changelog**__",
-            fields: [{
-                name: "**1.1.3 *(current version)***",
+            fields: [
+              {
+                name: "**1.1.4 *(current version)***",
+                value: 'fixed issues with nerd count\nre-added response to "no" due to popular request',
+                inline: true
+              },
+              {
+                name: "**1.1.3**",
                 value: "added personal opinions"
               },
               {
