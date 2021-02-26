@@ -209,7 +209,7 @@ client.on('message', message => {
                 })
             }
             else if(languageSpeaking == 'German') {
-                message.channel.send('im ernst hör auf, mich einen nerd zu nennen das hast du jetzt ' + stats.NERD_COUNT + ' ein anderes mal gemacht');
+                message.channel.send('im ernst hör auf mich einen nerd zu nennen das hast du jetzt ' + stats.NERD_COUNT + ' ein anderes mal gemacht');
                 stats.NERD_COUNT++;
                 fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
                     if (err) return console.log(err);
