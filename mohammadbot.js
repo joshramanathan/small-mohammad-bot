@@ -369,8 +369,7 @@ client.on('message', message => {
             fields: [
               {
                 name: "**1.1.5 *(current version)***",
-                value: 'made nerd response changed based on language\noccasionally gets upset from being called',
-                inline: true
+                value: 'made nerd response change based on language'
               },
               {
                 name: "**1.1.4**",
