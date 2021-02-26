@@ -21,9 +21,11 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
+    const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
+
     if(message.channel.type == 'dm') {
         var replies = ["go away", "get out", "dont talk to me", "stop", "leave me alone", "get away from me", "slide out of my dms"];
-        var random = Math.floor(Math.random() * 7);
+        var random = Math.floor(Math.random() * replies.length);
         if(message.content.toLowerCase() !== 'go away'){
             if(message.content.toLowerCase() !== 'get out'){
                 if(message.content.toLowerCase() !== 'dont talk to me'){
@@ -49,6 +51,9 @@ client.on('message', message => {
             }
         }
     }
+
+//  Magic 8 Ball (Small Mo/hammad, am/is/are/was/were/have/had/do/does/did/can/will/should/would)
+
 /*
     else if(message.content.toLowerCase() === 'small mo, should') {
         message.channel.send('should what');
@@ -57,17 +62,17 @@ client.on('message', message => {
         message.channel.send('am what');
     }
 
-    else if(message.content.toLowerCase().includes('small mo, should ') || message.content.toLowerCase().includes('small mohammad, should ')) {
+    else if(message.content.toLowerCase().includes('small mo, should ') || message.content.toLowerCase().includes('small mohammad, should ') || message.content.toLowerCase().includes('small mo, )) {
         nothing here yet
     }
 */
     else if(message.content.toLowerCase() === 'what do you think of me') {
         var adj1 = ["a stupid", "a dumb", "a moronic", "an idiotic", "a braindead", "a foolish", "a monstrous", "a fatuous", "a misshapen", "an imbecilic", "a disreputable", "a repugnant", "a grotesque", "a thickheaded", "an annoying", "a horrific", "an awful", "a gullible", "a nasty", "a dense", "an obtuse", "a dull", "an ignorant", "a brainless", "a bumbling"];
         var adj2 = ["stupid", "dumb", "moronic", "idiotic", "braindead", "foolish", "monstrous", "fatuous", "misshapen", "imbecilic", "disreputable", "repugnant", "grotesque", "thickheaded", "annoying", "horrific", "awful", "gullible", "nasty", "dense", "obtuse", "dull", "ignorant", "brainless", "bumbling"];
-        var nouns = ["idiot", "moron", "nincompoop", "nitwit", "dingbat", "cretin", "buffoon", "dimwit", "imbecile", "simpleton", "bonehead", "fool", "rascal", "freak", "dullard", "ignoramus", "numbskull", "airhead", "bozo", "clown", "galoot", "doofus"];
-        var randomAdj1 = Math.floor(Math.random() * 25);
-        var randomAdj2 = Math.floor(Math.random() * 25);
-        var randomNoun = Math.floor(Math.random() * 22);
+        var nouns = ["idiot", "moron", "nincompoop", "nitwit", "dingbat", "cretin", "buffoon", "dimwit", "imbecile", "simpleton", "bonehead", "fool", "rascal", "freak", "dullard", "ignoramus", "numbskull", "airhead", "bozo", "clown", "galoot", "doofus", "trog", "nonce"];
+        var randomAdj1 = Math.floor(Math.random() * adj1.length);
+        var randomAdj2 = Math.floor(Math.random() * adj2.length);
+        var randomNoun = Math.floor(Math.random() * nouns.length);
         var randomChance = Math.floor(Math.random() * 420);
         if(randomChance == 69) {
             message.channel.send('youre ok i guess');
@@ -80,8 +85,12 @@ client.on('message', message => {
         }
     }
 
-    else if(message.content.toLowerCase() === 'no') {
-        message.channel.send('yes');
+    else if((message.content.toLowerCase() === 'nerdnerd') || (message.content.toLowerCase().includes('nerdv'))) {
+        message.channel.send('stop spamming so fast');
+    }
+
+    else if(message.content.toLowerCase() === 'v') {
+        message.channel.send('you missed your control button');
     }
 
     else if(message.content.toLowerCase().includes('nerd')) {
@@ -108,8 +117,106 @@ client.on('message', message => {
                     if (err) return console.log(err);
                 })
             }
+            else if(stats.NERD_COUNT == 4200) {
+                message.channel.send('weed number times ten lol');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(stats.NERD_COUNT == 6969) {
+                message.channel.send('sex number but twice very funny im not gonna say it now');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(stats.NERD_COUNT == 10000) {
+                message.channel.send("okay so im going to say this right here and now. im done. im done with this nonsense. im done with all this bull. you hate me, i get it. you think im a nerd, its pretty obvious at this point. but you know what? im not going to let others walk all over me from now on. my kindhearted self you all knew is now hidden. if you want to see it then you need to work for it. i try day in and day out to make conversation and be there for everyone who wants to chat and what do i get in return? just the same old, unoriginal, horrible disparaging from every single person. im done being kind towards those who hurt me. the people that hurt me, made me feel like i mean nothing, betrayed me, most of all called me a nerd, you will no longer get any mercy from me. i refuse to let it continue like this. im not gonna say my usual spiel whenever you cyberbully me anymore, im just done with everything. i hate showing my deathly side, but from now on any bullying, any drama, im no longer holding myself back from getting angry. you people thought you knew my rage? i havent even come close to getting furious. good luck to anyone who decides to cross my path and piss me off, i will take you down and make sure that you will never see the light of day ever again.");
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(stats.NERD_COUNT == 10001) {
+                message.channel.send('i know your address, this is your final warning im being serious. one more time and you will face the full extent of my wrath i have yet to ever unleash.');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(stats.NERD_COUNT == 10002) {
+                message.channel.send('im done. goodbye, <@' + message.author.id + '>');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
             else if(stats.NERD_COUNT == 42069) {
                 message.channel.send('you were waiting for me to get to that number just so i would say it huh? well sucks to be you because ill never say the number and your once chance to tell me "haha weed sex number" will be gone forever loser');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Spanish') {
+                message.channel.send('deberás para de llamarme un nerd ya lo haz hecho ' + stats.NERD_COUNT + ' otras veces');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'French') {
+                message.channel.send('sérieusement arrêtes de mappeler un nerd tas fait ça ' + stats.NERD_COUNT + ' autres fois maintenant');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Romanian') {
+                message.channel.send('serios nu mă mai numi tocilar ai făcut asta ' + stats.NERD_COUNT + ' alte ori acum');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Chinese') {
+                message.channel.send('认真地说别再称我为书呆子了您现在又做了' + stats.NERD_COUNT + '次');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Japanese') {
+                message.channel.send('本当俺様をネルドと呼ぶのをやめなさいあお前は今それを' + stats.NERD_COUNT + '回やった');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Korean') {
+                message.channel.send('진심으로나를괴짜라고부르지마넌' + stats.NERD_COUNT + '번더했어');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Italian') {
+                message.channel.send('sul serio smettila di chiamarmi nerd lhai fatto altre ' + stats.NERD_COUNT + ' volte adesso');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'German') {
+                message.channel.send('im ernst hör auf, mich einen nerd zu nennen das hast du jetzt ' + stats.NERD_COUNT + ' ein anderes mal gemacht');
+                stats.NERD_COUNT++;
+                fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
+                    if (err) return console.log(err);
+                })
+            }
+            else if(languageSpeaking == 'Hindi') {
+                message.channel.send('गंभीरता से मुझे एक बेवकूफ कहना बंद करो आपने अब ' + stats.NERD_COUNT + ' बार ऐसा किया है');
                 stats.NERD_COUNT++;
                 fs.writeFile("./stats.json", JSON.stringify(stats), function writeJSON(err) {
                     if (err) return console.log(err);
@@ -125,14 +232,23 @@ client.on('message', message => {
         } 
     }
 
-    else if(message.content.toLowerCase().includes('small mohammad') || message.content.toLowerCase().includes('small mo')) {
+    else if(message.author.id != client.user.id && message.author.bot) {
+        message.channel.send('get out');
+    }
+
+    else if(message.content.toLowerCase().includes('gay')) {
+        message.channel.send('homophobe');
+    }
+
+    else if(message.content.toLowerCase().includes('small mo')) {
         if(languageSpeaking === 'English') {
-            if(smallMoCounter % 5 == 0) {
+            if(smallMoCounter % 10 == 0) {
                 message.channel.send('shut up or i will publicly behead you');
                 smallMoCounter++;
             }
             else{
                 message.channel.send('shut up');
+                smallMoCounter++;
             }
         }
         else if(languageSpeaking === 'Spanish') {
@@ -142,7 +258,7 @@ client.on('message', message => {
             message.channel.send('ferme-la');
         }
         else if(languageSpeaking === 'Romanian') {
-            message.channel.send('tachi');
+            message.channel.send('taci');
         }
         else if(languageSpeaking === 'Chinese') {
             message.channel.send('闭嘴');
@@ -170,7 +286,7 @@ client.on('message', message => {
     }
 
     else if(message.content.toLowerCase() === 'spanish') {
-        message.channel.send('qué coño quieres');
+        message.channel.send('qué chingados quieres');
         languageSpeaking = 'Spanish';
     }
 
@@ -214,6 +330,14 @@ client.on('message', message => {
         languageSpeaking = 'Hindi';
     }
 
+    else if(message.content.toLowerCase() === 'canadian') {
+        message.channel.send('what do you want eh');
+    }
+
+    else if(message.content.toLowerCase() === 'mandarin') {
+        message.channel.send('mandarin is a spoken language do i look like i can speak');
+    }
+
     else if(message.content.toLowerCase() === 'asian') {
         message.channel.send('asian isnt a language you dumb fucking cretin, you fucking fool absolute fucking buffoon, you bumbling idiot. fuck you');
     }
@@ -226,8 +350,16 @@ client.on('message', message => {
         message.channel.send('what do you mean "commands" you cant order me around');
     }
 
-    else if(message.content.toLowerCase().includes('blacklist') || message.content.toLowerCase().includes('$report')) {
+    else if(message.content.toLowerCase().includes('blacklist')) {
         message.channel.send('you blacklist my realm i will actually unleash my fury upon your world');
+    }
+
+    else if(message.content.toLowerCase().includes('you turned her against me')) {
+        message.channel.send('you have done that yourself');
+    }
+
+    else if(message.content.includes(client.user.id)) {
+        message.channel.send('<@' + message.author.id + '>');
     }
 
     else if(message.content.toLowerCase() === 'what happened to you') {
@@ -236,7 +368,12 @@ client.on('message', message => {
             title: "__**changelog**__",
             fields: [
               {
-                name: "**1.1.4 *(current version)***",
+                name: "**1.1.5 *(current version)***",
+                value: 'made nerd response changed based on language\noccasionally gets upset from being called',
+                inline: true
+              },
+              {
+                name: "**1.1.4**",
                 value: 'fixed issues with nerd count\nre-added response to "no" due to popular request',
                 inline: true
               },
