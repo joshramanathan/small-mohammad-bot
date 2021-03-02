@@ -49,8 +49,9 @@ client.on('message', message => {
             }
         }
     }
-
-    const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
+    else {
+        const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
+    }
 
 //  Magic 8 Ball (Small Mo/hammad, am/is/are/was/were/have/had/do/does/did/can/will/should/would)
 
