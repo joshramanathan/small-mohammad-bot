@@ -24,6 +24,7 @@ client.on('message', message => {
     if(message.channel.type == 'dm') {
         var replies = ["go away", "get out", "dont talk to me", "stop", "leave me alone", "get away from me", "slide out of my dms"];
         var random = Math.floor(Math.random() * replies.length);
+        if(!message.author.bot) {
         if(message.content.toLowerCase() !== 'go away'){
             if(message.content.toLowerCase() !== 'get out'){
                 if(message.content.toLowerCase() !== 'dont talk to me'){
@@ -48,10 +49,12 @@ client.on('message', message => {
                 }
             }
         }
+        }
     }
+
+    //const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
+
     else {
-        const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
-    }
 
 //  Magic 8 Ball (Small Mo/hammad, am/is/are/was/were/have/had/do/does/did/can/will/should/would)
 
@@ -428,5 +431,6 @@ client.on('message', message => {
               }
             ],
         }});
+    }
     }
 });
