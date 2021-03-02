@@ -21,8 +21,6 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
-
     if(message.channel.type == 'dm') {
         var replies = ["go away", "get out", "dont talk to me", "stop", "leave me alone", "get away from me", "slide out of my dms"];
         var random = Math.floor(Math.random() * replies.length);
@@ -52,6 +50,8 @@ client.on('message', message => {
         }
     }
 
+    const bigMohammad = message.guild.members.cache.get(m => m.id === "755524359753564311");
+
 //  Magic 8 Ball (Small Mo/hammad, am/is/are/was/were/have/had/do/does/did/can/will/should/would)
 
 /*
@@ -66,7 +66,8 @@ client.on('message', message => {
         nothing here yet
     }
 */
-    else if(message.content.toLowerCase() === 'what do you think of me') {
+
+    if(message.content.toLowerCase() === 'what do you think of me') {
         var adj1 = ["a stupid", "a dumb", "a moronic", "an idiotic", "a braindead", "a foolish", "a monstrous", "a fatuous", "a misshapen", "an imbecilic", "a disreputable", "a repugnant", "a grotesque", "a thickheaded", "an annoying", "a horrific", "an awful", "a gullible", "a nasty", "a dense", "an obtuse", "a dull", "an ignorant", "a brainless", "a bumbling"];
         var adj2 = ["stupid", "dumb", "moronic", "idiotic", "braindead", "foolish", "monstrous", "fatuous", "misshapen", "imbecilic", "disreputable", "repugnant", "grotesque", "thickheaded", "annoying", "horrific", "awful", "gullible", "nasty", "dense", "obtuse", "dull", "ignorant", "brainless", "bumbling"];
         var nouns = ["idiot", "moron", "nincompoop", "nitwit", "dingbat", "cretin", "buffoon", "dimwit", "imbecile", "simpleton", "bonehead", "fool", "rascal", "freak", "dullard", "ignoramus", "numbskull", "airhead", "bozo", "clown", "galoot", "doofus", "trog", "nonce"];
