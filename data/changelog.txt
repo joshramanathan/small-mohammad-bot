@@ -9,13 +9,12 @@ improved dm functionality
 hopefully fixed disappearing status
  
 **1.1.7**
-added 15 new languages (american, mexican, filipino, and bosnian/serbian/croatian, portugese, swedish, polish, bulgarian, arabic, azerbaijani, irish, occitan, tagalog)
+added 15 new languages (american, mexican, bosnian/serbian/croatian, portugese, swedish, polish, bulgarian, arabic, azerbaijani, irish, occitan, filipino/tagalog)
 made translations way more accurate with help from chatgpt
  
 **1.1.6**
 intentionally added response to "no" and "yes"
 made translations more accurate with help from c
-~~added locate command~~
  
 **1.1.5**
 made nerd response change based on language
@@ -33,7 +32,7 @@ added changelog and squished some bugs
 prioritized nerd response over all
  
 **1.1.1**
-Removed censoring from "nerd"
+removed censoring from "nerd"
  
 **1.1.0**
 added nerd counter
