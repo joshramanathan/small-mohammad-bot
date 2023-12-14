@@ -1,0 +1,22 @@
+{
+  "name": "small-mohammad-bot",
+  "version": "1.0.0",
+  "description": "A fun bot that lurks on my friends' discord server and responds sardonically to users. Foil to Big Mo.",
+  "main": "mohammadbot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshramanathan/small-mohammad-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshramanathan/small-mohammad-bot/issues"
+  },
+  "homepage": "https://github.com/joshramanathan/small-mohammad-bot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}

@@ -1,0 +1,64 @@
+**1.2.0 *(current version)***
+added nerd stats + rearranged insides
+ 
+**1.1.9**
+added admin commands and error handling (so no more mo deaths)
+ 
+**1.1.8**
+improved dm functionality
+hopefully fixed disappearing status
+ 
+**1.1.7**
+added 15 new languages (american, mexican, filipino, and bosnian/serbian/croatian, portugese, swedish, polish, bulgarian, arabic, azerbaijani, irish, occitan, tagalog)
+made translations way more accurate with help from chatgpt
+ 
+**1.1.6**
+intentionally added response to "no" and "yes"
+made translations more accurate with help from c
+~~added locate command~~
+ 
+**1.1.5**
+made nerd response change based on language
+unintentionally removed response to "no"
+ 
+**1.1.4**
+fixed issues with nerd count
+re-added response to "no" due to popular request (aka isaac)
+ 
+**1.1.3**
+added personal opinions
+ 
+**1.1.2**
+added changelog and squished some bugs
+prioritized nerd response over all
+ 
+**1.1.1**
+Removed censoring from "nerd"
+ 
+**1.1.0**
+added nerd counter
+fixed bug where i would fall asleep and not respond
+ 
+**1.0.6**
+added response to being called a nerd
+ 
+**1.0.5**
+added 3 new languages (hindi, asian, indian)
+ 
+**1.0.4**
+added response to dms
+ 
+**1.0.3**
+added 3 new languages (korean, german, and italian)
+ 
+**1.0.2**
+added 5 new languages (spanish, french, romanian, chinese, japanese)
+removed response to "no"
+ 
+**1.0.1**
+added response to being called by name
+added response to "no"
+ 
+**1.0.0**
+i was born and brought into the message board of my big brothers visitation unit
+ 

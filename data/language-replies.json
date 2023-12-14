@@ -1,0 +1,161 @@
+{
+    "English":
+    {
+        "what do you want": "what do you want",
+        "shut up": "shut up",
+        "seriously stop calling me a nerd youve done that": "seriously stop calling me a nerd youve done that ",
+        "other times now": " other times now"
+    },
+
+    "Irish":
+    {
+        "what do you want": "cad atá uait",
+        "shut up": "dún do bheal",
+        "seriously stop calling me a nerd youve done that": "stop ag glaoch orm nerd déanta tú sin ",
+        "other times now": " uair an chloig anois"
+    },
+
+    "Spanish":
+    {
+        "what do you want": "qué demonios quieres",
+        "shut up": "cállate",
+        "seriously stop calling me a nerd youve done that": "deberás para de llamarme un nerd ya lo haz hecho ",
+        "other times now": " otras veces"
+    },
+
+    "French":
+    {
+        "what do you want": "tu veux quoi",
+        "shut up": "tais toi",
+        "seriously stop calling me a nerd youve done that": "sérieusement arrêtes de mappeler un nerd tu las déjà fait ",
+        "other times now": " fois maintenant"
+    },
+
+    "Occitan":
+    {
+        "what do you want": "ques que vòles",
+        "shut up": "tais toi",
+        "seriously stop calling me a nerd youve done that": "arresta de me dire nerd ja fach aquò ",
+        "other times now": " còps ara"
+    },
+
+    "Italian":
+    {
+        "what do you want": "che vuoi",
+        "shut up": "zitto",
+        "seriously stop calling me a nerd youve done that": "seriamente smettila di chiamarmi nerd lhai fatto già ",
+        "other times now": " volte adesso"
+    },
+
+    "Portugese":
+    {
+        "what do you want": "o que quer",
+        "shut up": "cala a boca",
+        "seriously stop calling me a nerd youve done that": "sério para de me chamar de nerd já fez isso ",
+        "other times now": " vezes atualmente"
+    },
+
+    "German":
+    {
+        "what do you want": "was willst du",
+        "shut up": "halts maul",
+        "seriously stop calling me a nerd youve done that": "ernst hör auf mich nerd zu nennen hast du das schon ",
+        "other times now": " mal gemacht"
+    },
+
+    "Swedish":
+    {
+        "what do you want": "vad vill du",
+        "shut up": "håll käften",
+        "seriously stop calling me a nerd youve done that": "seriöst sluta kalla mig nerd du har gjort det ",
+        "other times now": " gånger nu"
+    },
+
+    "Polish":
+    {
+        "what do you want": "czego chcesz",
+        "shut up": "zamknij się",
+        "seriously stop calling me a nerd youve done that": "serio przestań mnie nazywać nerd zrobiłeś to już ",
+        "other times now": " razy"
+    },
+
+    "Romanian":
+    {
+        "what do you want": "ce vrei",
+        "shut up": "taci",
+        "seriously stop calling me a nerd youve done that": "seriosîncetează să mă numești nerd ai făcut asta de ",
+        "other times now": " de ori acum"
+    },
+
+    "BCS":
+    {
+        "what do you want": "šta hoćeš",
+        "shut up": "ćuti",
+        "seriously stop calling me a nerd youve done that": "stvarno prestani me zvati nerd već si to uradio ",
+        "other times now": " puta"
+    },
+
+    "Bulgarian":
+    {
+        "what do you want": "какво искаш",
+        "shut up": "затвори устата си",
+        "seriously stop calling me a nerd youve done that": "спри да ме наричаш кретен, сериозно, направил си го ",
+        "other times now": " пъти вече"
+    },
+
+    "Azerbaijani":
+    {
+        "what do you want": "nə istəyirsən",
+        "shut up": "sus",
+        "seriously stop calling me a nerd youve done that": "məni nerd adlandırma artıq ",
+        "other times now": " dəfə edibsin"
+    },
+
+    "Arabic":
+    {
+        "what do you want": "سكت",
+        "shut up": "ماذا تريد",
+        "seriously stop calling me a nerd youve done that": "قف عن تسميتي بالطالب الذكي، صراحة، فعلت ذلك ",
+        "other times now": " مرة بالفعل"
+    },
+
+    "Hindi":
+    {
+        "what do you want": "क्या चाहिए",
+        "shut up": "चुप",
+        "seriously stop calling me a nerd youve done that": "यार चुप कर मुझे नर्ड बुलाना बंद कर तूने यह काम पहले ही ",
+        "other times now": " बार कर लिया है"
+    },
+
+    "Chinese":
+    {
+        "what do you want": "你要什么",
+        "shut up": "闭嘴",
+        "seriously stop calling me a nerd youve done that": "别再叫我书呆子了你已经这样做了",
+        "other times now": "次了"
+    },
+
+    "Korean":
+    {
+        "what do you want": "뭐가 필요해",
+        "shut up": "닥쳐",
+        "seriously stop calling me a nerd youve done that": "정말 너 날 꼬마너드라고 계속 불러대네 이미 그런 말 ",
+        "other times now": "번 했잖아"
+    },
+
+    "Japanese":
+    {
+        "what do you want": "何欲しいのか",
+        "shut up": "黙れ",
+        "seriously stop calling me a nerd youve done that": "マジで俺をネルドって言うのやめろよもう",
+        "other times now": "回もやってんだから"
+    },
+
+    "Tagalog":
+    {
+        "what do you want": "anong gusto mo",
+        "shut up": "tumahimik ka",
+        "seriously stop calling me a nerd youve done that": "tigilan mo na ang pagtawag sa akin na nerd ",
+        "other times now": " beses mo na ginawa yan"
+    }
+}
