@@ -17,11 +17,15 @@ client.once("ready", () => {
 });
 
 client.login(config.BOT_TOKEN);
+Commands.client = client;
+
 setInterval(() => {client.user.setActivity({name: "Big Mo (commands)", type: "WATCHING"})}, 3600000);
 
 client.on("message", async message => {
-    if (message.channel.type == "dm") Commands.sendDm(message);
-
+    if (message.channel.type == "dm") {
+        Commands.sendDm(message);
+        return;
+    }
     switch (message.author.id) {
         case config.BIGMO_ID:
             Commands.sendGetOut(message);

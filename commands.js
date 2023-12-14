@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
-const client = new Discord.Client();
 const fs = require('fs');
 const config = require('./data/config.json');
 const stats = require('./data/stats.json');
@@ -8,6 +7,7 @@ const replies = require("./data/language-replies.json");
 const utilities = require('./utilities.js');
 
 module.exports = class Commands {
+    static client;
     static #dmReplies = ["go away", "get out", "dont talk to me", "stop", "leave me alone", "get away from me", "slide out of my dms", "bye"];
     static #languageSpeaking = "English";
     static #languageMap = new Map([
@@ -57,7 +57,9 @@ module.exports = class Commands {
         } else {
             await message.channel.send(utilities.chooseRandom(Commands.#dmReplies)).catch();
         }
-        await client.users.cache.get(config.LMNOP_ID).send('User "' + message.author.name + '" says: ' + message.content).catch();
+
+        const lmnop = await Commands.client.users.fetch(config.LMNOP_ID).catch();
+        await lmnop.send('User "' + message.author.username + '" says: ' + message.content).catch();
     }
 
     static async sendGetOut(message) {
@@ -152,7 +154,7 @@ module.exports = class Commands {
     }
 
     static async sendPing(message) {
-        await message.channel.send("<@" + message.author.id + ">").catch();
+        await message.channel.send("shut up||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​|| _ _ _ _ _ _ {<@" + message.author.id + ">}")
     }
 
     static async sendCommands(message) {
@@ -178,26 +180,7 @@ module.exports = class Commands {
     }
 
     static async sendChangelog(message) {
-        await message.channel.send(Commands.#makeStringEmbed("changelog", utilities.txtToString("./data/changelog.txt"))).catch();
-    }
-
-    static async testQuery(message) {
-        const statsEmbed = new MessageEmbed()
-            .setColor(0x000000)
-            .setTitle("le stats");
-        
-        for (let i = 0; i < stats["individuals"].length; ++i) {
-            statsEmbed.addFields({
-                name: stats["individuals"][i]["tag"],
-                value: (
-                    "Messages: " + stats["individuals"][i]["messages"] +
-                    "\nNerds: " + stats["individuals"][i]["nerds"] +
-                    "\nL + ratio: " + (Math.round(((stats["individuals"][i]["nerds"] / stats["individuals"][i]["messages"]) + Number.EPSILON) * 1000) / 1000)
-                )
-            });
-        }
-
-        await message.channel.send(statsEmbed).catch();
+        await message.channel.send(Commands.#makeStringEmbed("**__changelog__**", utilities.txtToString("./data/changelog.txt"))).catch();
     }
 
     static async sendNerdStats(message) {
@@ -236,6 +219,97 @@ module.exports = class Commands {
         await message.channel.send(messageRatioEmbed).catch();
     }
 
+    static async getStats(message) {
+        const prefix = "what do you think of ";
+        if (!message.content.toLowerCase().startsWith(prefix)) return;
+
+        let userId = message.content.substring(prefix.length + 2, message.content.length - 1);
+
+        const userIndex = utilities.fieldValueToIndex("userid", userId);
+        if (userIndex == -1 && userId != config.CLIENT_ID) {
+            await message.channel.send("who even is " + message.content.substring(prefix.length));
+            return;
+        }
+
+        let embedValue = "";
+
+        if (userId == config.CLIENT_ID) {
+            embedValue += (
+                "messages: **" + "∞" + "**" +
+                "\nnerds: **" + "0" + "**" +
+                "\npercentage: **" + "0% because im not a nerd" + "**"
+            );
+            const userStatsEmbed = new MessageEmbed()
+            .setColor(0x000000)
+            .addFields({
+                name: "small mo",
+                value: embedValue
+            });
+            await message.channel.send(userStatsEmbed);
+            return;
+        }
+
+        embedValue += (
+            "messages: **" + stats["individuals"][userIndex]["messages"] + "**" +
+            "\nnerds: **" + stats["individuals"][userIndex]["nerds"] + "**" +
+            "\npercentage: **" + utilities.ratioToPercent(stats["individuals"][userIndex]["nerds"] / stats["individuals"][userIndex]["messages"]) + "**"
+        );
+
+        const userStatsEmbed = new MessageEmbed()
+            .setColor(0x000000)
+            .addFields({
+                name: Commands.#tagToLowerName(stats["individuals"][userIndex]["tag"]),
+                value: embedValue
+            });
+            
+        await message.channel.send(userStatsEmbed);
+    }
+
+    static async incrementStat(message) {
+        const prefix = "increment stat ";
+        if (!message.content.toLowerCase().startsWith(prefix)) return;
+
+        if (message.author.id != config.LMNOP_ID) {
+            await message.channel.send("no");
+            return;
+        }
+
+        const parts = message.content.split(' ');
+        if (parts.length < 5 || parts.length > 6) return;
+
+        const category = parts[2].toLowerCase();
+        switch (category) {
+            case "globals":
+                const value = parseInt(parts[4]);
+                if (isNaN(value)) {
+                    await message.channel.send("wtf i cant increment by NaN");
+                    return;
+                }
+                utilities.incrementGlobalStats(parts[3], value);
+                await message.channel.send("fine now its " + stats["globals"][parts[3]]);
+                break;
+
+            case "individuals":
+                const userIndex = utilities.fieldValueToIndex("userid", parts[3].substring(2, parts[3].length - 1));
+                if (userIndex == -1) {
+                    await message.channel.send("who even is " + parts[3]);
+                    return;
+                }
+                const value2 = parseInt(parts[5]);
+                if (isNaN(value2)) {
+                    await message.channel.send("wtf i cant increment by NaN");
+                    return;
+                }
+                utilities.incrementIndividualStats(userIndex, parts[4], value2);
+                await message.channel.send("fine now its " + stats["individuals"][userIndex][parts[4]]);
+                break;
+
+            default:
+                await message.channel.send("globals or individuals");
+        }
+
+    }
+
     static async sendLike(message) {
         await message.channel.send("i hate everyone");
     }
@@ -262,25 +336,28 @@ module.exports = class Commands {
             return;
         }
         await message.channel.send("fine");
-        console.log("Node process exited with kill command called by " + message.author.tag);
-        process.exit();
+        console.log("Node process exiting with kill command called by " + message.author.tag);
+        await message.channel.send("bye");
+        await Commands.client.destroy();
+        process.exit(0);
     }
 
     static async throwError(message) {
-        if (!message.content.toLowerCase().startsWith("throw error ")) return;
+        const prefix = "throw error ";
+        if (!message.content.toLowerCase().startsWith(prefix)) return;
         if (message.author.id != config.LMNOP_ID) {
             await message.channel.send("no");
             return;
         }
-        let errorMessage = message.content.substring(12);
+        let errorMessage = message.content.substring(prefix.length);
         throw new Error(errorMessage);
     }
 
-    //////////////////////////////////////
-    ////                              ////
-    ////       HELPER FUNCTIONS       ////
-    ////                              ////
-    //////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    ////                                                  ////
+    ////                 HELPER FUNCTIONS                 ////
+    ////                                                  ////
+    //////////////////////////////////////////////////////////
 
     /**
      * Sends a "what do you want" in the specified language in the desired channel
@@ -304,7 +381,10 @@ module.exports = class Commands {
             case "filipino":
                 await channel.send("filipino isn't a language you dumb fucking cretin, you fucking fool, you absolute fucking buffoon, you bumbling");
                 await utilities.sleep(2000);
-                await channel.send("wait no actually it is. but youre on the edge buddy. fortunately for you, filipino is only a language by technicality because nerd linguists and the government decided that ackshually the language is filipino not tagalog like shut up seriously call it tagalog like a normal person i legitimately hope for nothing but a painful death for the braindead soul who thought it should be called filipino cause lololol king phillip or however you spell it pino language but either way youre on thin ice my friend no more slip ups like this or youll regret it");
+                channel.startTyping();
+                await utilities.sleep(1500);
+                await channel.send("wait no actually it is. but youre on the edge buddy. fortunately for you, filipino is only a language by technicality because nerd linguists and the government decided that ackshually the language is filipino not tagalog like shut up seriously call it tagalog like a normal person i legitimately hope for nothing but a painful death for the braindead soul who thought it should be called filipino cause lololol king phillip or however you spell it pino language but either way youre on thin ice my friend no more slip ups like filipenis or youll regret it");
+                channel.stopTyping();
                 return;
         }
         await channel.send(replies[Commands.#languageSpeaking]["what do you want"]).catch();

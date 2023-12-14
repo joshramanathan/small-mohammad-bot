@@ -40,11 +40,15 @@ module.exports.exactCommands = new Map([
     ["nerdnerdnerd", Commands.sendSpam],
     ["nerdv", Commands.sendSpam],
     ["v", Commands.sendMissedCtrl],
-    ["get stats all", Commands.testQuery],
     ["die", Commands.killCommand]
 ]);
 
 module.exports.includesCommands = new Map([
+    ["increment stat ", Commands.incrementStat],
+    ["whos a nerd", Commands.sendYouAre],
+    ["whose a nerd", Commands.sendYouAre],
+    ["whos the nerd", Commands.sendYouAre],
+    ["whose the nerd", Commands.sendYouAre],
     ["nerd", Commands.sendNerd],
     ["you turned her against me", Commands.sendAnakin],
     ["theyre taking the hobbits to isengard", Commands.sendLegolas],
@@ -61,12 +65,9 @@ module.exports.includesCommands = new Map([
     ["ily", Commands.sendHate],
     ["blacklist", Commands.sendBlacklist],
     ["amog", Commands.sendSus],
+    ["amoung", Commands.sendSus],
     ["among", Commands.sendAmogus],
     ["sus", Commands.sendAmogus],
-    ["whos a nerd", Commands.sendYouAre],
-    ["whose a nerd", Commands.sendYouAre],
-    ["whos the nerd", Commands.sendYouAre],
-    ["whose the nerd", Commands.sendYouAre],
     ["what happened to you", Commands.sendChangelog],
     ["what happened to u", Commands.sendChangelog],
     ["who do you hate", Commands.sendNerdStats],
@@ -81,7 +82,8 @@ module.exports.includesCommands = new Map([
     ["whos tolerable", Commands.sendTolerableStats],
     ["whose tolerable", Commands.sendTolerableStats],
     ["who is tolerable", Commands.sendTolerableStats],
-    ["755985190458753165", Commands.sendPing],
     ["small mo", Commands.sendShutUp],
-    ["throw error", Commands.throwError]
+    ["what do you think of ", Commands.getStats],
+    ["throw error ", Commands.throwError],
+    ["755985190458753165", Commands.sendPing]
 ]);

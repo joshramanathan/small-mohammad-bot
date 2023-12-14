@@ -8,9 +8,9 @@ const fs = require('fs');
  */
 module.exports.incrementGlobalStats = (key, step) => {
     stats["globals"][key] += step;
-    fs.writeFile("./stats.json", JSON.stringify(stats), (err) => {
+    fs.writeFile("./data/stats.json", JSON.stringify(stats), (err) => {
         if (err) throw err;
-    })
+    });
 }
 
 /**
@@ -21,26 +21,31 @@ module.exports.incrementGlobalStats = (key, step) => {
  */
 module.exports.incrementIndividualStats = (index, key, step) => {
     stats["individuals"][index][key] += step;
-    fs.writeFile("./stats.json", JSON.stringify(stats), (err) => {
+    fs.writeFile("./data/stats.json", JSON.stringify(stats), (err) => {
         if (err) throw err;
-    })
+    });
 }
 
 /**
- * 
- * @param {Discord.User} author The message's author whose message stat is increased
+ * Increments a user's message stat and creates a new entry in stats.json if user does not already exist
+ * @param {Discord.User} user The user whose message stat is increased
  */
-module.exports.handleMessage = (author) => {
-    const userIndex = this.fieldValueToIndex("userid", author.id);
+module.exports.handleMessage = (user) => {
+    const userIndex = this.fieldValueToIndex("userid", user.id);
     if (userIndex == -1) {
-        // create new individual at stats["individuals"][stats["individuals"].length - 1]
-        // userid = author.id
-        // tag = author.tag
-        // messages = 0
-        // nerds = 0
+        const newIndividual = {
+            userid: user.id,
+            tag: user.tag,
+            messages: 0,
+            nerds: 0
+        }
+        stats["individuals"].push(newIndividual);
+        fs.writeFile("./data/stats.json", JSON.stringify(stats), (err) => {
+            if (err) throw err;
+        });
     }
     this.incrementGlobalStats("TOTAL_MESSAGES", 1);
-    this.incrementIndividualStats(userIndex, "messages", 1);
+    this.incrementIndividualStats(stats["individuals"].length - 1, "messages", 1);
 }
 
 /**
@@ -87,6 +92,7 @@ module.exports.chooseRandom = (array) => {
  * @param {number} ratio The ratio to be converted
  */
 module.exports.ratioToPercent = (ratio) => {
+    if (isNaN(ratio)) return "n/a";
     return (Math.round((ratio + Number.EPSILON) * 1000) / 10) + "%";
 }
 
@@ -104,6 +110,7 @@ module.exports.sleep = (time) => {
  * @param {Discord.TextChannel | Discord.DMChannel | Discord.NewsChannel} channel The channel in which the error message is sent
  */
 module.exports.rejectionCallback = async (err, message) => {
-    await message.channel.send("wtf thats a " + err).catch((err) => console.log(err));
-    console.log(err);
+    await message.channel.send("wtf thats a " + err)
+        .then(console.log(err))
+        .catch((err) => console.log(err));
 }
