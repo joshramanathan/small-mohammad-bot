@@ -349,11 +349,13 @@ module.exports = class Commands {
     }
 
     static async activateFreeRespond(message) {
+        if (Commands.#freeRespond) return;
         await message.channel.send("what");
         Commands.#freeRespond = true;
     }
 
     static async deactivateFreeRespond(message) {
+        if (!Commands.#freeRespond) return;
         await message.channel.send("fine");
         Commands.#freeRespond = false;
     }
@@ -372,7 +374,7 @@ module.exports = class Commands {
         prevMessages.reverse();
 
         prevMessages.forEach((prevMessage) => {
-            if (prevMessage.author.id == config.CLIENT_ID || prevMessage.author.id == message.author.id) {
+            if (prevMessage.author.id == config.CLIENT_ID || !prevMessage.author.bot) {
 
                 if (prevMessage.author.id == config.CLIENT_ID) {
                     conversationLog.push({
