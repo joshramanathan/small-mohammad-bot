@@ -368,7 +368,7 @@ module.exports = class Commands {
             content: utilities.txtToString("./data/system-prompt.txt")
         }];
 
-        let prevMessages = await message.channel.messages.fetch({ limit: 10 });
+        let prevMessages = await message.channel.messages.fetch({ limit: 6 });
         prevMessages.reverse();
 
         prevMessages.forEach((prevMessage) => {
