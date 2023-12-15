@@ -1,4 +1,8 @@
-**1.2.0 *(current version)***
+**1.3.0 *(current version)***
+added free response mode -- "talk to me" or "speak to me"
+added ability to get stats of a specific user
+
+**1.2.0**
 added nerd stats + rearranged insides
  
 **1.1.9**

@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const fs = require('fs');
 const config = require('./data/config.json');
 const stats = require('./data/stats.json');
@@ -9,6 +9,7 @@ const utilities = require('./utilities.js');
 module.exports = class Commands {
     static client;
     static #dmReplies = ["go away", "get out", "dont talk to me", "stop", "leave me alone", "get away from me", "slide out of my dms", "bye"];
+    static #freeRespond = false;
     static #languageSpeaking = "English";
     static #languageMap = new Map([
         ["english", "English"],
@@ -180,21 +181,15 @@ module.exports = class Commands {
     }
 
     static async sendChangelog(message) {
-        await message.channel.send(Commands.#makeStringEmbed("**__changelog__**", utilities.txtToString("./data/changelog.txt"))).catch();
+        await message.channel.send({ embeds: [Commands.#makeStringEmbed("**__changelog__**", utilities.txtToString("./data/changelog.txt"))] }).catch();
     }
 
     static async sendNerdStats(message) {
-        await message.channel.send(Commands.#makeSortedStatsEmbed(
-            "meanest people (by nerds)", 
-            "nerds"
-        )).catch();
+        await message.channel.send({ embeds: [Commands.#makeSortedStatsEmbed("meanest people (by nerds)", "nerds")] }).catch();
     }
 
     static async sendMessageStats(message) {
-        await message.channel.send(Commands.#makeSortedStatsEmbed(
-            "most annoying people (by messages)", 
-            "messages"
-        )).catch();
+        await message.channel.send({ embeds: [Commands.#makeSortedStatsEmbed("most annoying people (by messages)", "messages")] }).catch();
     }
 
     static async sendTolerableStats(message) {
@@ -209,14 +204,14 @@ module.exports = class Commands {
             if (i != sortedRatioStats.length - 1) embedValue += "\n";
         }
 
-        const messageRatioEmbed = new MessageEmbed()
+        const messageRatioEmbed = new EmbedBuilder()
             .setColor(0x000000)
             .addFields({
                 name: "most tolerable people (by nerd%)",
                 value: embedValue
             });
 
-        await message.channel.send(messageRatioEmbed).catch();
+        await message.channel.send({ embeds: [messageRatioEmbed] }).catch();
     }
 
     static async getStats(message) {
@@ -239,13 +234,13 @@ module.exports = class Commands {
                 "\nnerds: **" + "0" + "**" +
                 "\npercentage: **" + "0% because im not a nerd" + "**"
             );
-            const userStatsEmbed = new MessageEmbed()
+            const moStatsEmbed = new EmbedBuilder()
             .setColor(0x000000)
             .addFields({
                 name: "small mo",
                 value: embedValue
             });
-            await message.channel.send(userStatsEmbed);
+            await message.channel.send({ embeds: [moStatsEmbed] });
             return;
         }
 
@@ -255,14 +250,14 @@ module.exports = class Commands {
             "\npercentage: **" + utilities.ratioToPercent(stats["individuals"][userIndex]["nerds"] / stats["individuals"][userIndex]["messages"]) + "**"
         );
 
-        const userStatsEmbed = new MessageEmbed()
+        const userStatsEmbed = new EmbedBuilder()
             .setColor(0x000000)
             .addFields({
                 name: Commands.#tagToLowerName(stats["individuals"][userIndex]["tag"]),
                 value: embedValue
             });
             
-        await message.channel.send(userStatsEmbed);
+        await message.channel.send({ embeds: [userStatsEmbed] });
     }
 
     static async incrementStat(message) {
@@ -353,6 +348,59 @@ module.exports = class Commands {
         throw new Error(errorMessage);
     }
 
+    static async activateFreeRespond(message) {
+        await message.channel.send("what");
+        Commands.#freeRespond = true;
+    }
+
+    static async deactivateFreeRespond(message) {
+        await message.channel.send("fine");
+        Commands.#freeRespond = false;
+    }
+
+    static async gptRespond(message, openai) {
+        if (!Commands.#freeRespond) return;
+
+        await message.channel.sendTyping();
+
+        let conversationLog = [{
+            role: "system",
+            content: utilities.txtToString("./data/system-prompt.txt")
+        }];
+
+        let prevMessages = await message.channel.messages.fetch({ limit: 10 });
+        prevMessages.reverse();
+
+        prevMessages.forEach((prevMessage) => {
+            if (prevMessage.author.id == config.CLIENT_ID || prevMessage.author.id == message.author.id) {
+
+                if (prevMessage.author.id == config.CLIENT_ID) {
+                    conversationLog.push({
+                        role: "assistant",
+                        content: prevMessage.content
+                    });
+                } else {
+                    conversationLog.push({
+                        role: "user",
+                        name: prevMessage.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, ''),
+                        content: prevMessage.content
+                    })
+                }
+
+            }
+        })
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: conversationLog
+        });
+
+        if (response)
+            await message.channel.send(response.choices[0].message.content);
+        else
+            await message.channel.send("i literally cant talk");
+    }
+
     //////////////////////////////////////////////////////////
     ////                                                  ////
     ////                 HELPER FUNCTIONS                 ////
@@ -381,10 +429,9 @@ module.exports = class Commands {
             case "filipino":
                 await channel.send("filipino isn't a language you dumb fucking cretin, you fucking fool, you absolute fucking buffoon, you bumbling");
                 await utilities.sleep(2000);
-                channel.startTyping();
+                channel.sendTyping();
                 await utilities.sleep(1500);
                 await channel.send("wait no actually it is. but youre on the edge buddy. fortunately for you, filipino is only a language by technicality because nerd linguists and the government decided that ackshually the language is filipino not tagalog like shut up seriously call it tagalog like a normal person i legitimately hope for nothing but a painful death for the braindead soul who thought it should be called filipino cause lololol king phillip or however you spell it pino language but either way youre on thin ice my friend no more slip ups like filipenis or youll regret it");
-                channel.stopTyping();
                 return;
         }
         await channel.send(replies[Commands.#languageSpeaking]["what do you want"]).catch();
@@ -401,7 +448,7 @@ module.exports = class Commands {
     }
 
     /**
-     * Creates a MessageEmbed object from users in stats.json, sorted in descending order by the desired field
+     * Creates a EmbedBuilder object from users in stats.json, sorted in descending order by the desired field
      * @param {string} title The title of the embed
      * @param {string} field The field by which the stats are sorted
      */
@@ -417,7 +464,7 @@ module.exports = class Commands {
             if (i != sortedStats.length - 1) embedValue += "\n";
         }
 
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor(0x000000)
             .addFields({
                 name: title,
@@ -429,11 +476,11 @@ module.exports = class Commands {
      * Creates a new embed titled the passed title whose body is the passed str
      * @param {string} title The title of the embed
      * @param {string} str The string, whose fields are separated by "\n\n" and name/value pair separated by "\n"
-     * @returns {Discord.MessageEmbed}
+     * @returns {Discord.EmbedBuilder}
      */
     static #makeStringEmbed(title, str) {
         const substrArray = str.split("\n");
-        const stringEmbed = new MessageEmbed()
+        const stringEmbed = new EmbedBuilder()
         .setColor(0x000000)
         .setTitle(title);
         let versionName, curLine, features = "";

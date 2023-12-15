@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/joshramanathan/small-mohammad-bot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord.js": "^14.14.1",
+    "openai": "^4.21.0"
   }
 }

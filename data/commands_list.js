@@ -40,7 +40,10 @@ module.exports.exactCommands = new Map([
     ["nerdnerdnerd", Commands.sendSpam],
     ["nerdv", Commands.sendSpam],
     ["v", Commands.sendMissedCtrl],
-    ["die", Commands.killCommand]
+    ["die", Commands.killCommand],
+    ["talk to me nerd", Commands.activateFreeRespond],
+    ["speak to me nerd", Commands.activateFreeRespond],
+    ["will you shut up man", Commands.deactivateFreeRespond],
 ]);
 
 module.exports.includesCommands = new Map([
@@ -82,6 +85,14 @@ module.exports.includesCommands = new Map([
     ["whos tolerable", Commands.sendTolerableStats],
     ["whose tolerable", Commands.sendTolerableStats],
     ["who is tolerable", Commands.sendTolerableStats],
+    ["talk to me", Commands.activateFreeRespond],
+    ["speak to me", Commands.activateFreeRespond],
+    ["your being annoying", Commands.deactivateFreeRespond],
+    ["youre being annoying", Commands.deactivateFreeRespond],
+    ["you are being annoying", Commands.deactivateFreeRespond],
+    ["ur being annoying", Commands.deactivateFreeRespond],
+    ["u are being annoying", Commands.deactivateFreeRespond],
+    ["stop being annoying", Commands.deactivateFreeRespond],
     ["small mo", Commands.sendShutUp],
     ["what do you think of ", Commands.getStats],
     ["throw error ", Commands.throwError],
