@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
-const fs = require('fs');
 const config = require('./data/config.json');
 const stats = require('./data/stats.json');
 const replies = require("./data/language-replies.json");
@@ -60,7 +59,7 @@ module.exports = class Commands {
         }
 
         const lmnop = await Commands.client.users.fetch(config.LMNOP_ID).catch();
-        await lmnop.send('User "' + message.author.username + '" says: ' + message.content).catch();
+        await lmnop.send("**" + message.author.username + "**\n" + message.content);
     }
 
     static async sendGetOut(message) {
@@ -365,42 +364,46 @@ module.exports = class Commands {
 
         await message.channel.sendTyping();
 
-        let conversationLog = [{
-            role: "system",
-            content: utilities.txtToString("./data/system-prompt.txt")
-        }];
+        try {
+            let conversationLog = [{
+                role: "system",
+                content: utilities.txtToString("./data/system-prompt.txt")
+            }];
 
-        let prevMessages = await message.channel.messages.fetch({ limit: 6 });
-        prevMessages.reverse();
+            let prevMessages = await message.channel.messages.fetch({ limit: 6 });
+            prevMessages.reverse();
 
-        prevMessages.forEach((prevMessage) => {
-            if (prevMessage.author.id == config.CLIENT_ID || !prevMessage.author.bot) {
+            prevMessages.forEach((prevMessage) => {
+                if (prevMessage.author.id == config.CLIENT_ID || !prevMessage.author.bot) {
 
-                if (prevMessage.author.id == config.CLIENT_ID) {
-                    conversationLog.push({
-                        role: "assistant",
-                        content: prevMessage.content
-                    });
-                } else {
-                    conversationLog.push({
-                        role: "user",
-                        name: prevMessage.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, ''),
-                        content: prevMessage.content
-                    })
+                    if (prevMessage.author.id == config.CLIENT_ID) {
+                        conversationLog.push({
+                            role: "assistant",
+                            content: prevMessage.content
+                        });
+                    } else {
+                        conversationLog.push({
+                            role: "user",
+                            name: prevMessage.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, ''),
+                            content: prevMessage.content
+                        })
+                    }
+
                 }
+            })
 
-            }
-        })
+            const response = await openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: conversationLog
+            });
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: conversationLog
-        });
-
-        if (response)
-            await message.channel.send(response.choices[0].message.content);
-        else
-            await message.channel.send("i literally cant talk");
+            if (response)
+                await message.channel.send(response.choices[0].message.content);
+            else
+                await message.channel.send("i literally cant talk");
+        } catch (err) {
+            await message.channel.send("im broke i literally cant respond");
+        }
     }
 
     //////////////////////////////////////////////////////////

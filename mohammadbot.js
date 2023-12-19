@@ -1,12 +1,22 @@
-const { Client, GatewayIntentBits, Events, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, Events, ActivityType, ChannelType, Partials } = require('discord.js');
 const { OpenAI } = require('openai');
-// import OpenAI from 'openai';
 const config = require('./data/config.json');
 const commandsList = require('./data/commands_list.js');
 const Commands = require('./commands.js');
 const utilities = require('./utilities.js');
 
-const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent ] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.MessageContent
+    ],
+    partials: [
+        Partials.Channel,
+        Partials.Message
+    ]
+});
 
 client.once(Events.ClientReady, () => {
     console.log(`${client.user.tag} is ready to insult`);
@@ -37,10 +47,11 @@ setInterval(() => {
 }, 3600000);
 
 client.on(Events.MessageCreate, async message => {
-    if (message.channel.type == "dm") {
+    if (message.channel.type == ChannelType.DM) {
         await Commands.sendDm(message);
         return;
     }
+
     switch (message.author.id) {
         case config.BIGMO_ID:
             await Commands.sendGetOut(message);
@@ -70,11 +81,7 @@ client.on(Events.MessageCreate, async message => {
                 }
 
                 if (!commandFound) {
-                    try {
-                        await Commands.gptRespond(message, openai);
-                    } catch (err) {
-                        message.channel.send("im broke i literally cant respond");
-                    }
+                    await Commands.gptRespond(message, openai);
                 }
             }  
         } 
